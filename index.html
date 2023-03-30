@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./estilos.css">
+    <title>Mundo Gamer</title>
+</head>
+<body>
+
+    <!------- encabezado, logo e imagen tipo banner-------->
+    <header>
+        <div>
+            <img class="logo" src="./logo.svg" alt="">
+            <h1>NOMBRE PAGINA DE VIDEOJUEGOS</h1>
+        </div>
+
+        <div>
+            <img class="fondo-img" src="./banner-videojuegos.png" alt="">
+        </div>
+    </header>   
+
+
+
+    <!--------formulario para filtrar--------->
+        <form>
+            <label for="">Filtrar juego por: </label>
+            <select name="" id="">
+                <option value="nombre">Nombre</option>
+                <option value="genero">Genero</option>
+                <option value="plataforma">Plataforma</option>
+                <option value="ordenar">Ordenar a-z</option>
+            </select>
+
+        <button type="submit">Filtrar</button>
+        </form>
+
+
+    <!-- juegos disponibles -->
+    <div class="lista-juegos">
+        <ul>
+            <li>
+                <ul>
+                    <li>NOMBRE: Resident Evil</li>
+                    <li>GENERO: Terror </li>
+                    <li>PLATAFORMA: Windows</li>
+                </ul>
+            </li>
+            <li>
+                <ul>
+                    <li>NOMBRE: Final Fantasy</li>
+                    <li>GENERO: RPG </li>
+                    <li>PLATAFORMA: Android</li>
+                </ul>
+            </li>
+            <li>
+                <ul>
+                    <li>NOMBRE: The Last Of Us</li>
+                    <li>GENERO: Terror </li>
+                    <li>PLATAFORMA: PlayStation</li>
+                </ul>
+            </li>
+            <li>
+                <ul>
+                    <li>NOMBRE: God Of War</li>
+                    <li>GENERO: Accion </li>
+                    <li>PLATAFORMA: PlayStation</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="agregar-juego">
+        <form>
+            <h2>Agregar un juego nuevo</h2>
+            <label for="">Nombre</label>
+            <input type="text">
+            <label for="">Genero</label>
+            <input type="text">
+            <label for="">Plataforma</label>
+            <input type="text">
+        </form>
+        <button>Agregar juego</button>
+    </div>
+    
+
+
+    <!----------- pie de pagina ----------->
+    <footer>Miño Erika Antonella - Cotignola Griselda Soledad - 2023</footer>
+</body>
+</html>
