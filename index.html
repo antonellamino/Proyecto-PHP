@@ -20,7 +20,7 @@
         </div>
 
         <div>
-            <img class="fondo-img" src="./banner-videojuegos.png" alt="">
+            <img class="fondo-img" src="./BANNER-VIDEO-JUEGOS.jpg" alt="">
         </div>
     </header>
 
@@ -30,11 +30,12 @@
 
     <!--------formulario para filtrar--------->
     <form>
-        <h2 for="">Filtrar juego por: </h2>
+        <h2>Filtrar juego por: </h2>
         <label for="nombre">Nombre del juego: </label>
         <input type="text" name="" id="nombre">
         <label for="genero"> Genero: </label>
             <select name="" id="">
+                <option value="">Seleccionar</option>
                 <option value="">Terror</option>
                 <option value="">Aventura</option>
                 <option value="">RPG</option>
@@ -42,6 +43,7 @@
             </select>
         <label for="">Plataforma</label>
         <select name="" id="">
+            <option value="">Seleccionar</option>
             <option value="">Microsoft</option>
             <option value="">PlayStation</option>
             <option value="">Android</option>
@@ -56,15 +58,14 @@
         <button type="submit">Filtrar</button>
         
     </form>
-    <button type="submit" class="btn-agregar-juego"><a href="./altaJuego.html">Agregar juego</a></button>
-
-
+    <div class="btn-submit">
+        <button type="submit"><a href="./altaJuego.html">Agregar juego</a></button>
+    </div>
 
 
     <!------------- juegos disponibles--------------->
     <div class="lista-juegos">
         <ul>
-
             <li>
                 <ul class="card-juego">
                     <img class="img-juego" src="./img-juego1.jpeg" alt="">

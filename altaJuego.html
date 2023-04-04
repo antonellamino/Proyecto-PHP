@@ -25,36 +25,40 @@
 
 <!-- formulario para agregar juego -->
 <div class="agregar-juego">
-    <form class="form-juego" id="form-alta-juego" onsubmit="return validarAltaJuego()">
+    <form class="form-juego" id="form-alta-juego" onsubmit="return  validarAltaJuego()">
         <h2>Agregar un juego nuevo</h2>
-
-        <label for="" id="form-nombre">Nombre</label>
-        <input type="text" required>
+        <label for="" >Nombre</label>
+        <input type="text" id="form-nombre">
 
         <label for="" id="form-img">Imagen</label>
-        <input class="btn-img-form" type="file" required>
+        <input class="btn-img-form" id="imagen" type="file">
 
         <label for="">Descripcion</label>
-        <textarea name="" id="" cols="85" rows="5" maxlength="255"></textarea>
+        <textarea name="" id="descripcion" cols="85" rows="6"></textarea>
 
         <label for="" id="form-genero">Genero</label>
-        <select name="" id="" required>
-            <option value="">Genero 1</option>
-            <option value="">Genero2</option> <!--dar estilos al menu desplegable-->
+        <select name="" id="genero" >
+            <option value="seleccionar-genero">Seleccionar</option>
+            <option value="terror">Terror</option>
+            <option value="RPG">rpg</option>
+            <option value="accion">Accion</option>
+            <option value="aventura">Aventura</option> <!--dar estilos al menu desplegable-->
         </select>
 
         <label for="" id="form-plat">Plataforma</label>
-        <select name="" id="" required>Plataforma
-            <option value="">Plataforma1</option>
-            <option value="">Plataforma2</option> <!--dar estilos al menu desplegable-->
+        <select name="" id="plataforma" >Plataforma
+            <option value="seleccionar-plataforma">Seleccionar</option>
+            <option value="windows">Windows</option>
+            <option value="android">Android</option>
+            <option value="playstation">PlayStation</option> 
+            <option value="macos">MacOS</option><!--dar estilos al menu desplegable-->
         </select>
 
         <label for="" id="form-url">Ruta</label>
-        <input type="text">
-
-        <input class="btn-agregar-juego" type="submit" value="AGREGAR JUEGO">
+        <input type="text" id="url">
+        <button type="submit">Agregar juego</button>
     </form>
-    <button><a href="./index.html">Volver</a></button>
+    <button class="btn-volver"><a href="./index.html">Volver</a></button>
 
 </div>
 

@@ -43,6 +43,7 @@ form{
 form label {
     font-size: 26px;
     display: inline-block;
+    font-weight: lighter;
 }
 
 select{
@@ -52,30 +53,51 @@ select{
     border: 1px solid black;
     border-radius: 10px;
     text-align: center;
+    margin-bottom: 30px;
 }
 
-form button{ /*ver si va el form*/
-    width: 100px;
-    border-radius: 50px;
-    border: 0.5px solid black
-}
 
-form button:hover{
-    background-color: #062530;
-}
+
+/*-----BOTONES--------*/
 
 button{
-    margin-top: 20px;
+    padding: 5px;
+    width: 30%;
+    border-radius: 50px;
+    border: 0.5px solid black;
+    margin-top: 30px;
+    cursor: pointer;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 20px;
 }
 
-btn-agregar-juego{
-    margin: 20px;
-    padding: 10px;
+a{
+    text-decoration: none;
+    color: black;
+}
+
+button:hover{
+    background-color: #062530;
+    color: grey;
+    font-size: 24px;
+}
+
+.btn-submit{
+    text-align: center;
+    padding-bottom: 100px;
+}
+
+.btn-volver{
+    margin-bottom: 50px;
+    margin-left: 80px;
 }
 
 
+
+
+/*----- FOOTER------*/
 footer{
-    background-color: #F5F5F5;
+    background-color: white;
     padding: 20px;
     text-align: center;
     border: 1px solid; /*despues ver si se saca el borde*/
@@ -85,8 +107,11 @@ ul, li{
     list-style: none;
     font-size: 18px;
     padding: 5px;
+    font-weight:bold;
 }
 
+
+/*---- FORM AGREGAR JUEGO ----*/ 
 .agregar-juego form{
     display: flex;
     flex-direction: column;
@@ -98,12 +123,7 @@ label, input{
     width: 60%;
 }
 
-.btn-agregar-juego{
-    margin-top: 30px;
-    cursor: pointer;
-    font-family: 'Roboto Mono', monospace;
-    font-size: 18px;
-}
+
 
 .btn-img-form{
     border: 0.4px solid black;
@@ -111,21 +131,17 @@ label, input{
     background-color: white;
 }
 
-.agregar-juego h2{
+h2{
     padding: 10px;
     margin-bottom: 40px;
     background-color: white;
     border: 1px solid;
     width: 100%;
-}
-
-h2{
-    margin-bottom: 30px;
-    padding: 10px;
     box-shadow: 10px 11px 5px -3px rgba(138,131,131,0.51);
     -webkit-box-shadow: 10px 11px 5px -3px rgba(138,131,131,0.51);
     -moz-box-shadow: 10px 11px 5px -3px rgba(138,131,131,0.51);
-/*agregar el hover al select*/}
+}
+
 
 
 
@@ -143,6 +159,7 @@ h2{
     width: 40%;
     height: 200px;
     border-radius: 0.5rem;
+    border: 3px solid black;
 }
 
 .card-juego{
@@ -150,6 +167,7 @@ h2{
     flex-direction: row;
     margin: 20px;
 }
+
 
 
 
