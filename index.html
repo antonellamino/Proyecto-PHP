@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,86 +8,130 @@
     <link rel="stylesheet" href="./estilos.css">
     <title>Mundo Gamer</title>
 </head>
+
 <body>
 
     <!------- encabezado, logo e imagen tipo banner-------->
     <header>
         <div>
-            <img class="logo" src="./logo.svg" alt="">
+            <a href="./index.html">
+                <img class="logo" src="./logo.svg" alt=""></a>
             <h1>NOMBRE PAGINA DE VIDEOJUEGOS</h1>
         </div>
 
         <div>
             <img class="fondo-img" src="./banner-videojuegos.png" alt="">
         </div>
-    </header>   
+    </header>
+
+    
 
 
 
     <!--------formulario para filtrar--------->
-        <form>
-            <label for="">Filtrar juego por: </label>
+    <form>
+        <h2 for="">Filtrar juego por: </h2>
+        <label for="nombre">Nombre del juego: </label>
+        <input type="text" name="" id="nombre">
+        <label for="genero"> Genero: </label>
             <select name="" id="">
-                <option value="nombre">Nombre</option>
-                <option value="genero">Genero</option>
-                <option value="plataforma">Plataforma</option>
-                <option value="ordenar">Ordenar a-z</option>
+                <option value="">Terror</option>
+                <option value="">Aventura</option>
+                <option value="">RPG</option>
+                <option value="">Accion</option>
             </select>
+        <label for="">Plataforma</label>
+        <select name="" id="">
+            <option value="">Microsoft</option>
+            <option value="">PlayStation</option>
+            <option value="">Android</option>
+        </select>
+        <label for="">Ordenar: </label>
+        <select name="" id="">
+            <option value="">A-Z</option>
+            <option value="">Z-A</option>
+        </select>
 
+        <br>
         <button type="submit">Filtrar</button>
-        </form>
+        
+    </form>
+    <button type="submit" class="btn-agregar-juego"><a href="./altaJuego.html">Agregar juego</a></button>
 
 
-    <!-- juegos disponibles -->
+
+
+    <!------------- juegos disponibles--------------->
     <div class="lista-juegos">
         <ul>
+
             <li>
-                <ul>
-                    <li>NOMBRE: Resident Evil</li>
-                    <li>GENERO: Terror </li>
-                    <li>PLATAFORMA: Windows</li>
+                <ul class="card-juego">
+                    <img class="img-juego" src="./img-juego1.jpeg" alt="">
+                    <div class="card-juegos-item">
+                        <li>NOMBRE: Resident Evil</li>
+                        <li>GENERO: Terror </li>
+                        <li>PLATAFORMA: Windows</li>
+                        <li>DESCRIPCION: Lorem ipsum, dolor sit amet consectetur </li>
+                        <li>URL: Lorem ipsum dolor sit amet</li>
+                    </div>
                 </ul>
             </li>
+
+
+            <br>
             <li>
-                <ul>
-                    <li>NOMBRE: Final Fantasy</li>
-                    <li>GENERO: RPG </li>
-                    <li>PLATAFORMA: Android</li>
+                <ul class="card-juego">
+                    <img class="img-juego" src="./img-juego2.jpg" alt="">
+                    <div class="card-juegos-item">
+                        <li>NOMBRE: Final Fantasy</li>
+                        <li>GENERO: RPG </li>
+                        <li>PLATAFORMA: Android</li>
+                        <li>DESCRIPCION: Lorem ipsum, dolor sit amet consectetur  </li>
+                        <li>URL: Lorem ipsum dolor sit amet</li>
+                    </div>
                 </ul>
             </li>
+
+
+            <br>
             <li>
-                <ul>
-                    <li>NOMBRE: The Last Of Us</li>
-                    <li>GENERO: Terror </li>
-                    <li>PLATAFORMA: PlayStation</li>
+                <ul class="card-juego">
+                    <img class="img-juego" src="./img-juego3.jpg" alt="">
+                    <div class="card-juegos-item">
+                        <li>NOMBRE: The Last Of Us</li>
+                        <li>GENERO: Terror </li>
+                        <li>PLATAFORMA: PlayStation</li>
+                        <li>DESCRIPCION: Lorem ipsum, dolor sit amet consectetur </li>
+                        <li>URL: Lorem ipsum dolor sit amet</li>
+                    </div>
                 </ul>
             </li>
+
+
+            <br>
             <li>
-                <ul>
-                    <li>NOMBRE: God Of War</li>
-                    <li>GENERO: Accion </li>
-                    <li>PLATAFORMA: PlayStation</li>
+                <ul class="card-juego">
+                    <img class="img-juego" src="./img-juego4.jpg" alt="">
+                    <div class="card-juegos-item">
+                        <li>NOMBRE: God Of War</li>
+                        <li>GENERO: Accion </li>
+                        <li>PLATAFORMA: PlayStation</li>
+                        <li>DESCRIPCION: Lorem ipsum, dolor sit amet consectetur</li>
+                        <li>URL: Lorem ipsum dolor sit amet</li>
+                    </div>
                 </ul>
             </li>
+
+
         </ul>
     </div>
 
-    <div class="agregar-juego">
-        <form>
-            <h2>Agregar un juego nuevo</h2>
-            <label for="">Nombre</label>
-            <input type="text">
-            <label for="">Genero</label>
-            <input type="text">
-            <label for="">Plataforma</label>
-            <input type="text">
-        </form>
-        <button>Agregar juego</button>
-    </div>
-    
 
 
     <!----------- pie de pagina ----------->
     <footer>Miño Erika Antonella - Cotignola Griselda Soledad - 2023</footer>
+    <script src="validarAltaJuego.js"></script>
 </body>
+
 </html>

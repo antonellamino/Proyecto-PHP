@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./estilos.css">
+    <title>Document</title>
+</head>
+<body>
+    
+<!------- encabezado, logo e imagen tipo banner-------->
+<header>
+    <div class="titulo">
+        <a href="./index.html">
+            <img class="logo" src="./logo.svg" alt=""></a>
+        <h1>NOMBRE PAGINA DE VIDEOJUEGOS</h1>
+    </div>
+
+    <div>
+        <img class="fondo-img" src="./banner-videojuegos.png" alt="">
+    </div>
+</header>  
+
+
+<!-- formulario para agregar juego -->
+<div class="agregar-juego">
+    <form class="form-juego" id="form-alta-juego" onsubmit="return validarAltaJuego()">
+        <h2>Agregar un juego nuevo</h2>
+
+        <label for="" id="form-nombre">Nombre</label>
+        <input type="text" required>
+
+        <label for="" id="form-img">Imagen</label>
+        <input class="btn-img-form" type="file" required>
+
+        <label for="">Descripcion</label>
+        <textarea name="" id="" cols="85" rows="5" maxlength="255"></textarea>
+
+        <label for="" id="form-genero">Genero</label>
+        <select name="" id="" required>
+            <option value="">Genero 1</option>
+            <option value="">Genero2</option> <!--dar estilos al menu desplegable-->
+        </select>
+
+        <label for="" id="form-plat">Plataforma</label>
+        <select name="" id="" required>Plataforma
+            <option value="">Plataforma1</option>
+            <option value="">Plataforma2</option> <!--dar estilos al menu desplegable-->
+        </select>
+
+        <label for="" id="form-url">Ruta</label>
+        <input type="text">
+
+        <input class="btn-agregar-juego" type="submit" value="AGREGAR JUEGO">
+    </form>
+    <button><a href="./index.html">Volver</a></button>
+
+</div>
+
+<script src="validarAltaJuego.js"></script>
+<footer>Miño Erika Antonella - Cotignola Griselda Soledad - 2023</footer>
+
+</body>
+</html>
