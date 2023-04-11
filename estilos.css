@@ -8,6 +8,8 @@
 body{
     font-family: 'Roboto Mono', monospace;
     background-color: #FEFADC;
+    /* background: linear-gradient(rgb(6,80,76), rgb(20,129,102), rgb(95,217,226));
+    flood-color: rgb(2, 51, 39);*/
 }
 
 header div{
@@ -71,10 +73,13 @@ button{
     font-size: 20px;
 }
 
+
+
 a{
     text-decoration: none;
     color: black;
 }
+
 
 button:hover{
     background-color: #062530;
@@ -90,6 +95,17 @@ button:hover{
 .btn-volver{
     margin-bottom: 50px;
     margin-left: 80px;
+}
+
+.btn-juego{
+    padding: 5px;
+    width: 30%;
+    border-radius: 50px;
+    border: 0.5px solid black;
+    margin-top: 30px;
+    cursor: pointer;
+    font-family: 'Roboto Mono', monospace;
+    font-size: 20px;
 }
 
 

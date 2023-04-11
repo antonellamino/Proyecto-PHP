@@ -10,45 +10,45 @@ function validarAltaJuego() {
     let plataforma = document.getElementById('plataforma');
     let opcionPlataforma = plataforma.options[plataforma.selectedIndex].value; //develve el valor de la opcion elegida
     let url = document.getElementById('url').value;
-
+    let alerta= "";
 
     //Las alertas estan a modo de mensaje, se pueden sacar, sirven para saber que esta faltando o que esta mal
-    if (nombre === null || nombre.length == 0){
-        alert("El nombre no puede estar vacio");
+    if (nombre === null || nombre == ''){
         valido = false;
-        return valido;
+        alerta += 'El nombre no puede estar vacio. ';
     }
 
     if (img[0] === undefined ){ //chequeo, si el valor del archivo en la posicion [0] es indefinido, es porque no se selecciono ninguna imagen
-        alert('Se debe seleccionar una imagen');
+        alert();
         valido = false;
-        return valido;
+        alerta += 'Se debe seleccionar una imagen. ';
     }
 
     if (descripcion.length > 255){
-        alert("La descripcion no puede superar los 255 caracteres");
+        alerta += 'La descripcion no puede superar los 255 caracteres. ';
         valido = false;
-        return valido;
     }
 
     if (opcionGenero === 'seleccionar-genero'){
-        alert('Seleccionar genero');
+        alerta += 'Seleccionar genero. ';
         valido = false;
-        return valido;
     }
 
     if (url.length > 80){
-        alert('La ruta no debe tener mas de 80 caracteres');
+        alerta +='La ruta no debe tener mas de 80 caracteres. ';
         valido = false;
-        return valido;
     }
 
     
     if (opcionPlataforma === 'seleccionar-plataforma') { //chequeo si el valor que tengo es el valor de la opcion seleccionar, significa que no fue seleccionado ninguna plataforma, si no devolveria el valor de alguna plataforma permitida
-        alert('Seleecionar una plataforma');
+        alerta += ' Seleccionar una plataforma.';
         valido = false;
-        return valido;
     }
 
+
+    if (!valido ) 
+        alert (alerta);
+    
+    return valido;
 }
 
