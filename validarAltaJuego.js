@@ -19,7 +19,6 @@ function validarAltaJuego() {
     }
 
     if (img[0] === undefined ){ //chequeo, si el valor del archivo en la posicion [0] es indefinido, es porque no se selecciono ninguna imagen
-        alert();
         valido = false;
         alerta += 'Se debe seleccionar una imagen. ';
     }
@@ -47,8 +46,10 @@ function validarAltaJuego() {
 
 
     if (!valido ) 
-        alert (alerta);
+        alert(alerta);
     
     return valido;
 }
 
+//VER LO DE EL CODIGO REPETIDO EN LOS ESTILOS
+//VER PORQUE ESTA MANDANDO UN ALERT VACIO, LO DEMAS ESTA OK

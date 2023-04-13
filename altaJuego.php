@@ -14,7 +14,7 @@
     <div class="titulo">
         <a href="./index.html">
             <img class="logo" src="./logo.svg" alt=""></a>
-        <h1>NOMBRE PAGINA DE VIDEOJUEGOS</h1>
+        <h1>GAMELAND</h1>
     </div>
 
     <div>
@@ -58,7 +58,7 @@
         <input type="text" id="url">
         <button type="submit">Agregar juego</button>
     </form>
-    <button class="btn-volver"><a href="./index.html">Volver</a></button>
+    <a class="btn-b" href="./index.html">Volver</a>
 
 </div>
 

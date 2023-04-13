@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./estilos.css">
-    <title>Mundo Gamer</title>
+    <title>Gameland</title>
 </head>
 
 <body>
@@ -16,7 +16,7 @@
         <div>
             <a href="./index.html">
                 <img class="logo" src="./logo.svg" alt=""></a>
-            <h1>NOMBRE PAGINA DE VIDEOJUEGOS</h1>
+            <h1>GAMELAND</h1>
         </div>
 
         <div>
@@ -59,7 +59,7 @@
         
     </form>
     <div class="btn-submit">
-        <a class="btn-juego" href="./altaJuego.html">Agregar juego</a>
+        <a class="btn-a" href="./altaJuego.html">Agregar juego</a>
     </div>
 
 
