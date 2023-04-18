@@ -7,7 +7,5 @@ $link = mysqli_connect('localhost', 'root', '', 'plataformajuegos'); /*se puede 
 
 if ($link -> connect_errno){       
 die('Conexion fallida ' . $link->connect_errno);
-} else {
-    echo "conectado";
 }
 ?>

@@ -2,17 +2,19 @@
 require_once "conexionBD.php";
 
 
-$juegos = "SELECT nombre,descripcion,url FROM juegos";
+$juegos = "SELECT * FROM juegos";
 $resJuegos = $link->query($juegos);
 $generos = "SELECT nombre FROM generos";
 $resGeneros = $link->query($generos);
 $plataformas = "SELECT nombre FROM plataformas";
 $resPlataformas = $link->query($plataformas);
 
-
+if(isset($_POST['filtrar'])){
+    $buscar = $_POST['juego_a_buscar']; //para agarrar lo que esta dentro de este input, o sea el nombre introducido
+    $juegos .= "WHERE nombre = '{$buscar}'";
+}
 
 ?>
-
 
 <!DOCTYPE html>
 <html lang="es">
@@ -46,10 +48,10 @@ $resPlataformas = $link->query($plataformas);
 
 
     <!--------formulario para filtrar--------->
-    <form method="post"> 
+    <form method="POST" action="index2.php"> 
         <h2>Filtrar juego por: </h2>
         <label for="nombre">Nombre del juego: </label>
-        <input type="text" name="" id="nombre">
+        <input type="text" name="juego_a_buscar" id="nombre">
         <label for="genero"> Genero: </label>
             <select name="" id="">
                 <option value="">Seleccionar</option>
@@ -73,26 +75,36 @@ $resPlataformas = $link->query($plataformas);
         </select>
 
         <br>
-        <button type="submit">Filtrar</button>
+        <button type="submit" name="filtrar">Filtrar</button>
         
     </form>
+
     <div class="btn-submit">
-        <a class="btn-a" href="./altaJuego.html">Agregar juego</a>
+        <a class="btn-a" href="./altaJuego.php">Agregar juego</a>
     </div>
 
-    <!------------- juegos disponibles--------------->
 
+
+    <!------------- juegos disponibles--------------->
+    
+                    <!-- aca iria la imagen -->
     <?php while ($row = $resJuegos->fetch_assoc() and $gen = $resGeneros->fetch_assoc() and $plat = $resPlataformas->fetch_assoc()){ ?>
-        <div class="card-juegos-item">
-            <li>NOMBRE: <?php echo $row["nombre"]; ?></li>
-            <li>DESCRIPCION: <?php echo $row["descripcion"]; ?> </li>
-            <li>GENERO: <?php echo $gen["nombre"]; ?></li>
-            <li>PLATAFORMA: <?php echo $plat["nombre"];?></li>
-            <li>URL:<?php echo $row["url"]; ?></li>
-        </div>
-    </ul>
-    <br>
+    <div class="lista-juegos">
+        <ul>
+            <li>
+                <ul class="card-juego">
+                    <div class="card-juegos-item">
+                        <li>NOMBRE: <?php echo $row["nombre"]; ?></li>
+                        <li>DESCRIPCION: <?php echo $row["descripcion"]; ?> </li>
+                        <li>GENERO: <?php echo $gen["nombre"]; ?></li>
+                        <li>PLATAFORMA: <?php echo $plat["nombre"];?></li>
+                        <li>URL:<?php echo $row["url"]; ?></li>
+                    </div>
+                </ul>
     <?php }?>
+            </li>
+        </ul>
+    </div>
 
 
 
@@ -100,7 +112,7 @@ $resPlataformas = $link->query($plataformas);
 
     <!----------- pie de pagina ----------->
     <footer>Miño Erika Antonella - Cotignola Griselda Soledad - 2023</footer>
-    <script src="validarAltaJuego.js"></script>
+    <!-- <script src="validarAltaJuego.js"></script> -->
 </body>
 
 </html>
