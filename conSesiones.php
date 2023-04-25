@@ -1,8 +1,8 @@
 <?php
 include_once "conexionBD.php";
 
-//-------- Sesiones ------
-session_start(); //inicia una nueva sesion
+// //-------- Sesiones ------
+// session_start(); //inicia una nueva sesion
 
 
 //variables de sesion
@@ -38,51 +38,51 @@ if(isset($_POST['submit'])) {
 }
 
 
-//SI SE CLIQUEA EL BOTON AGREGAR JUEGO, SE VIENEN A HACER LOS CHEQUEOS
-//CONSULTAR SI HAY QUE PERSONALIZAR LOS MENSAJES
-// if (isset($_POST['submit'])){
-//     $mensaje = "";
+// SI SE CLIQUEA EL BOTON AGREGAR JUEGO, SE VIENEN A HACER LOS CHEQUEOS
+// CONSULTAR SI HAY QUE PERSONALIZAR LOS MENSAJES
+if (isset($_POST['submit'])){
+    $mensaje = "";
 
-//     //chequeo de nombre
-//     if(empty($_POST['nombre'])){
-//         $mensaje .= 'Se debe ingresar un nombre <br/>';
-//     }
-//     else {
-//         $nombreJuego = $_POST['nombre'];
-//     }
+    //chequeo de nombre
+    if(empty($_POST['nombre'])){
+        $mensaje .= 'Se debe ingresar un nombre <br/>';
+    }
+    else {
+        $nombreJuego = $_POST['nombre'];
+    }
 
-//     //chequeo de imagen
-//     if(empty($_POST['imagen'])){
-//         $mensaje .= 'Se debe seleccionar una imagen <br/>';
-//     }
+    //chequeo de imagen
+    if(empty($_POST['imagen'])){
+        $mensaje .= 'Se debe seleccionar una imagen <br/>';
+    }
 
-//     //chequeo descripcion max 255 caracteres
-//     if (strlen($_POST['descripcion']) > 255) {
-//         $mensaje .= 'La descripcion no debe tener mas de 255 caracteres <br/>';
-//     }
+    //chequeo descripcion max 255 caracteres
+    if (strlen($_POST['descripcion']) > 255) {
+        $mensaje .= 'La descripcion no debe tener mas de 255 caracteres <br/>';
+    }
 
-//     //chequeo plataforma
-//     if (empty($_POST['plataformas'])){
-//         $mensaje .= 'Se debe seleccionar una plataforma <br/>';
-//     } else {
-//         echo $_POST['plataformas']; //lo puse para ver si efectivamente funcionaba, quiere decir que en "plataformas" esta el valor que se selecciono
-//     }
+    //chequeo plataforma
+    if (empty($_POST['plataformas'])){
+        $mensaje .= 'Se debe seleccionar una plataforma <br/>';
+    } else {
+        echo $_POST['plataformas']; //lo puse para ver si efectivamente funcionaba, quiere decir que en "plataformas" esta el valor que se selecciono
+    }
 
-//     //chequeo la cant de caracteres de la url (80)
-//     if(strlen($_POST['url']) > 80){
-//         $mensaje .= 'La url no debe tener mas de 80 caracteres <br/>';
-//     }
+    //chequeo la cant de caracteres de la url (80)
+    if(strlen($_POST['url']) > 80){
+        $mensaje .= 'La url no debe tener mas de 80 caracteres <br/>';
+    }
 
-//     //chequeo que se haya seleccionado un genero
-//     if (empty($_POST['generos'])){
-//         $mensaje .= 'Se debe seleccionar un genero <br/>';
-//     } else {
-//         echo $_POST['generos'] . '<br/>'; //lo puse para ver si efectivamente funcionaba, quiere decir que en "plataformas" esta el valor que se selecciono
-//     }
+    //chequeo que se haya seleccionado un genero
+    if (empty($_POST['generos'])){
+        $mensaje .= 'Se debe seleccionar un genero <br/>';
+    } else {
+        echo $_POST['generos'] . '<br/>'; //lo puse para ver si efectivamente funcionaba, quiere decir que en "plataformas" esta el valor que se selecciono
+    }
 
-//     echo $mensaje;
-//     //echo '<script language="javascript">alert("'.$mensaje.'");</script>';
-// }
+    echo $mensaje;
+    //echo '<script language="javascript">alert("'.$mensaje.'");</script>';
+}
 
 
 if(isset($_SESSION['mensaje'])) { ?>
@@ -164,3 +164,8 @@ if(isset($_SESSION['mensaje'])) { ?>
 
 </body>
 </html>
+
+<!-- SELECT j.*, g.nombre AS nombre_genero
+FROM juegos j
+	INNER JOIN generos g ON g.id = j.id_genero
+    INNER JOIN generos g ON g.id = j.id_genero -->
