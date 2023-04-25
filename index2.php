@@ -4,15 +4,14 @@ require_once "conexionBD.php";
 
 $juegos = "SELECT * FROM juegos";
 $resJuegos = $link->query($juegos);
-$generos = "SELECT nombre FROM generos";
+$generos = "SELECT nombre, id FROM generos";
 $resGeneros = $link->query($generos);
 $plataformas = "SELECT nombre FROM plataformas";
 $resPlataformas = $link->query($plataformas);
 
-if(isset($_POST['filtrar'])){
-    $buscar = $_POST['juego_a_buscar']; //para agarrar lo que esta dentro de este input, o sea el nombre introducido
-    $juegos .= "WHERE nombre = '{$buscar}'";
-}
+
+
+
 
 ?>
 
@@ -33,13 +32,13 @@ if(isset($_POST['filtrar'])){
     <!------- encabezado, logo e imagen tipo banner-------->
     <header>
         <div>
-            <a href="./index.html">
-                <img class="logo" src="./logo.svg" alt=""></a>
+            <a href="./index2.php">
+                <img class="logo" src="./img/logo.svg" alt=""></a>
             <h1>GAMELAND</h1>
         </div>
 
         <div>
-            <img class="fondo-img" src="./banner-videojuegos.png    " alt="">
+            <img class="fondo-img" src="./img/banner-videojuegos.png    " alt="">
         </div>
     </header>
 
@@ -52,26 +51,28 @@ if(isset($_POST['filtrar'])){
         <h2>Filtrar juego por: </h2>
         <label for="nombre">Nombre del juego: </label>
         <input type="text" name="juego_a_buscar" id="nombre">
+
         <label for="genero"> Genero: </label>
-            <select name="" id="">
-                <option value="">Seleccionar</option>
-                <option value="">Terror</option>
-                <option value="">Aventura</option>
-                <option value="">RPG</option>
-                <option value="">Accion</option>
+            <select name="filtro_genero" id="genero"> <!--id se asocia con el name del select-->
+            <?php while ($row = $resGeneros->fetch_assoc()){?>
+                <?php echo "<option value=\"" . $row["id"] . "\">" . $row["nombre"] . "</option>"; ?>
+                <?php } ?>
             </select>
-        <label for="">Plataforma</label>
-        <select name="" id="">
-            <option value="">Seleccionar</option>
-            <option value="">Microsoft</option>
-            <option value="">PlayStation</option>
-            <option value="">Android</option>
+
+
+        <label for="plataforma">Plataforma</label>
+        <select name="filtro_plataforma" id="plataforma">
+        <?php while ($row = $resPlataformas->fetch_assoc()){?>
+            <?php echo "<option value=\"" . $row["id"] . "\">" . $row["nombre"] . "</option>"; ?>
+            <?php } ?>
         </select>
-        <label for="">Ordenar: </label>
-        <select name="" id="">
-            <option value="">Seleccionar</option>
-            <option value="">A-Z</option>
-            <option value="">Z-A</option>
+
+
+        <label for="ordenar">Ordenar: </label>
+        <select name="filtro_ordenar" id="ordenar">
+            <option value="selec">Seleccionar</option>
+            <option value="asc">A-Z</option>
+            <option value="desc">Z-A</option>
         </select>
 
         <br>
@@ -87,7 +88,7 @@ if(isset($_POST['filtrar'])){
 
     <!------------- juegos disponibles--------------->
     
-                    <!-- aca iria la imagen -->
+    <!-- aca iria la imagen -->
     <?php while ($row = $resJuegos->fetch_assoc() and $gen = $resGeneros->fetch_assoc() and $plat = $resPlataformas->fetch_assoc()){ ?>
     <div class="lista-juegos">
         <ul>
@@ -101,10 +102,10 @@ if(isset($_POST['filtrar'])){
                         <li>URL:<?php echo $row["url"]; ?></li>
                     </div>
                 </ul>
-    <?php }?>
             </li>
         </ul>
     </div>
+    <?php }?>
 
 
 
