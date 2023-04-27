@@ -1,3 +1,26 @@
+<?php   
+require_once "conexionBD.php";
+
+session_start();
+
+if (isset($_SESSION['alta-exitosa'])){ //valida que se haya seteado el alta exitosa, si se seteo es xq todos los campos estan
+    echo "Se agrego un juego";
+    unset($_SESSION['alta-exitosa']); //la limpio para que no quede seteada
+}
+
+$juegos = "SELECT * FROM juegos";
+$resJuegos = $link->query($juegos);
+$generos = "SELECT nombre, id FROM generos";
+$resGeneros = $link->query($generos);
+$plataformas = "SELECT * FROM plataformas";
+$resPlataformas = $link->query($plataformas);
+$ocultar = false;
+
+print_r ($_POST); //DEBUG, eliminar para entrega
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,16 +34,17 @@
 
 <body>
 
+
     <!------- encabezado, logo e imagen tipo banner-------->
     <header>
         <div>
-            <a href="./index.html">
-                <img class="logo" src="./logo.svg" alt=""></a>
+            <a href="./index2.php">
+                <img class="logo" src="./img/logo.svg" alt=""></a>
             <h1>GAMELAND</h1>
         </div>
 
         <div>
-            <img class="fondo-img" src="./banner-videojuegos.png    " alt="">
+            <img class="fondo-img" src="./img/banner-videojuegos.png    " alt="">
         </div>
     </header>
 
@@ -29,110 +53,127 @@
 
 
     <!--------formulario para filtrar--------->
-    <form>
+    <form method="POST" action="index.php"> 
         <h2>Filtrar juego por: </h2>
         <label for="nombre">Nombre del juego: </label>
-        <input type="text" name="" id="nombre">
-        <label for="genero"> Genero: </label>
-            <select name="" id="">
-                <option value="">Seleccionar</option>
-                <option value="">Terror</option>
-                <option value="">Aventura</option>
-                <option value="">RPG</option>
-                <option value="">Accion</option>
-            </select>
-        <label for="">Plataforma</label>
-        <select name="" id="">
-            <option value="">Seleccionar</option>
-            <option value="">Microsoft</option>
-            <option value="">PlayStation</option>
-            <option value="">Android</option>
+        <input type="text" name="juego_a_buscar" id="nombre">
+
+
+        <label for="genero"> Genero </label>
+        <select name="filtro_genero" id="genero"> <!--id se asocia con el name del select-->
+            <option disabled selected value>Seleccionar</option>
+            <?php while ($row = $resGeneros->fetch_assoc()){?>
+            <?php echo "<option value=\"" . $row["id"] . "\">" . $row["nombre"] . "</option>"; ?>
+            <?php } ?>
         </select>
-        <label for="">Ordenar: </label>
-        <select name="" id="">
-            <option value="">A-Z</option>
-            <option value="">Z-A</option>
+
+
+        <label for="plataforma"> Plataforma </label>
+        <select name="filtro_plataforma" id="plataforma">
+            <option disabled selected value>Seleccionar</option>
+            <?php while ($row = $resPlataformas->fetch_assoc()){?>
+            <?php echo "<option value=\"" . $row["id"] . "\">" . $row["nombre"] . "</option>"; ?>
+            <?php } ?>
+        </select>
+
+
+        <label for="ordenar">Ordenar: </label>
+        <select name="filtro_ordenar" id="ordenar">
+            <option disabled selected value>Seleccionar</option>
+            <option value="asc">A-Z</option>
+            <option value="desc">Z-A</option>
         </select>
 
         <br>
-        <button type="submit">Filtrar</button>
+        <button type="submit" name="filtrar">Filtrar</button>
         
     </form>
+
     <div class="btn-submit">
-        <a class="btn-a" href="./altaJuego.html">Agregar juego</a>
+        <a class="btn-a" href="./altaJuego.php">Agregar juego</a>
     </div>
 
 
-    <!------------- juegos disponibles--------------->
-    <div class="lista-juegos">
-        <ul>
-            <li>
-                <ul class="card-juego">
-                    <img class="img-juego" src="./img-juego1.jpeg" alt="">
-                    <div class="card-juegos-item">
-                        <li>NOMBRE: Resident Evil</li>
-                        <li>GENERO: Terror </li>
-                        <li>PLATAFORMA: Windows</li>
-                        <li>DESCRIPCION: Lorem ipsum, dolor sit amet consectetur </li>
-                        <li>URL: Lorem ipsum dolor sit amet</li>
-                    </div>
+    <!---------- COMPORTAMIENTO BOTON FILTRAR ---------->
+    <?php if(isset($_POST['filtrar'])){
+        //FILTRAR POR JUEGO
+        if((!empty($_POST['juego_a_buscar'])) and (empty($_POST['filtro_genero'])) and (empty($_POST['filtro_plataforma']))){
+            $nombre = $_POST['juego_a_buscar'];
+            $consulta = "WHERE j.nombre LIKE '%$nombre%' ";
+            ordenar($consulta);
+            imprimirDatos($consulta);
+            }   
+        
+        //FILTRAR POR GENERO
+        if(empty($_POST['juego_a_buscar']) and !empty($_POST['filtro_genero']) and empty($_POST['filtro_plataforma'])){
+            $genero = $_POST['filtro_genero'];
+            $consulta = "WHERE j.id_genero = $genero";
+            ordenar($consulta);
+            imprimirDatos($consulta);
+        }
+
+        //FILTRAR POR PLATAFORMA
+        if(!empty($_POST['filtro_plataforma']) and empty($_POST['filtro_genero']) and empty($_POST['juego_a_buscar'])){
+            $plataforma = $_POST['filtro_plataforma'];
+            $consulta = "WHERE j.id_plataforma = $plataforma";
+            ordenar($consulta);
+            imprimirDatos($consulta);
+        }
+    }
+    else {
+        imprimirDatos(""); //MUESTRA LA LISTA PORQUE entra a traves del get , el post esta vacio
+    }
+
+
+
+    function ordenar(&$consulta){ //&se usa para pasar variables por referencia en la funcion
+        if(!empty($_POST['filtro_ordenar'])){
+            if($_POST['filtro_ordenar'] == "asc"){
+                $consulta .= " ORDER BY j.nombre ASC";
+            }
+            else {
+                $consulta .= " ORDER BY j.nombre DESC";
+            }
+        }
+    }
+
+
+
+    function imprimirDatos($consulta){
+        global $link;
+        $cons = "SELECT j.*, g.nombre AS nombre_genero, p.nombre as nombre_plataforma FROM juegos j INNER JOIN generos g ON g.id = j.id_genero 
+        INNER JOIN plataformas p on p.id = j.id_plataforma " . $consulta;
+        $resConsulta = $link->query($cons);
+
+        while($row = $resConsulta->fetch_assoc()){?>
+            <div class="lista-juegos">
+                <ul>
+                    <li>
+                        <ul class="card-juego">
+                            <div class="card-juegos-item">
+                                <li><img src="data:image/jpeg;base64,XXXXXXXXXXXXXXXXXXXXX" alt=""></li>
+                                <li>NOMBRE: <?php echo $row["nombre"]; ?></li>
+                                <li>DESCRIPCION: <?php echo $row["descripcion"]; ?> </li>
+                                <li>GENERO: <?php echo $row["nombre_genero"]; ?></li>
+                                <li>PLATAFORMA: <?php echo $row["nombre_plataforma"];?></li>
+                                <li>URL:<?php echo $row["url"]; ?></li>
+                            </div>
+                        </ul>
+                    </li>
                 </ul>
-            </li>
+            </div>
+    <?php }
+        }?>
 
 
-            <br>
-            <li>
-                <ul class="card-juego">
-                    <img class="img-juego" src="./img-juego2.jpg" alt="">
-                    <div class="card-juegos-item">
-                        <li>NOMBRE: Final Fantasy</li>
-                        <li>GENERO: RPG </li>
-                        <li>PLATAFORMA: Android</li>
-                        <li>DESCRIPCION: Lorem ipsum, dolor sit amet consectetur  </li>
-                        <li>URL: Lorem ipsum dolor sit amet</li>
-                    </div>
-                </ul>
-            </li>
 
-
-            <br>
-            <li>
-                <ul class="card-juego">
-                    <img class="img-juego" src="./img-juego3.jpg" alt="">
-                    <div class="card-juegos-item">
-                        <li>NOMBRE: The Last Of Us</li>
-                        <li>GENERO: Terror </li>
-                        <li>PLATAFORMA: PlayStation</li>
-                        <li>DESCRIPCION: Lorem ipsum, dolor sit amet consectetur </li>
-                        <li>URL: Lorem ipsum dolor sit amet</li>
-                    </div>
-                </ul>
-            </li>
-
-
-            <br>
-            <li>
-                <ul class="card-juego">
-                    <img class="img-juego" src="./img-juego4.jpg" alt="">
-                    <div class="card-juegos-item">
-                        <li>NOMBRE: God Of War</li>
-                        <li>GENERO: Accion </li>
-                        <li>PLATAFORMA: PlayStation</li>
-                        <li>DESCRIPCION: Lorem ipsum, dolor sit amet consectetur</li>
-                        <li>URL: Lorem ipsum dolor sit amet</li>
-                    </div>
-                </ul>
-            </li>
-
-
-        </ul>
-    </div>
+    <!----------- juegos disponibles------------->
+    <!-- aca iria la imagen -->
 
 
 
     <!----------- pie de pagina ----------->
-    <footer>Miño Erika Antonella - Cotignola Griselda Soledad - 2023</footer>
-    <script src="validarAltaJuego.js"></script>
+    <footer> Miño Erika Antonella - Cotignola Griselda Soledad - 2023</footer>
 </body>
 
 </html>

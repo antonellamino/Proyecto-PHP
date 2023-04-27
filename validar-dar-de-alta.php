@@ -58,7 +58,7 @@ if (isset($_POST['submit'])){
 
 
 $alta = "INSERT INTO juegos (id, nombre, imagen, tipo_imagen, descripcion, url, id_genero, id_plataforma) 
-        VALUES ('34', 'nombre','x', 'x',   'descripcion', 'url', '{$_POST['id-genero']}', '{$_POST['id-plataforma']}')";
+        VALUES ('', 'nombre','x', 'x',   'descripcion', 'url', '{$_POST['id-genero']}', '{$_POST['id-plataforma']}')";
 $resAlta = $link->query($alta); //ver lo de los parametros que estan x defecto porque no se como se hacen
 
 $_SESSION['alta-exitosa'] = true; //si no hay errores envia true a index
@@ -69,4 +69,4 @@ die();
 
 <!-- //CONSULTAS:    imagen, como hacemos para subirla
                 como enviamos un id auto incremental, lo mismo con las img 
-                 -->
+                cuando usar get, usar get?-->
