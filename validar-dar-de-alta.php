@@ -24,6 +24,10 @@ if (isset($_POST['submit'])){
     if(empty($_POST['imagen'])){
         $_SESSION['img-error'] = true;
         $esta_ok = false;
+        $img = $_FILES; //no se como acceder al nombrede la img
+        $contenidoBinario = file_get_contents($img);
+        $imgencode = base64_encode($img);
+        //insertar
     }
 
     //chequeo descripcion max 255 caracteres
@@ -57,9 +61,9 @@ if (isset($_POST['submit'])){
 }
 
 
-$alta = "INSERT INTO juegos (id, nombre, imagen, tipo_imagen, descripcion, url, id_genero, id_plataforma) 
-        VALUES ('', 'nombre','x', 'x',   'descripcion', 'url', '{$_POST['id-genero']}', '{$_POST['id-plataforma']}')";
-$resAlta = $link->query($alta); //ver lo de los parametros que estan x defecto porque no se como se hacen
+$alta = "INSERT INTO juegos (nombre, descripcion, url, id_genero, id_plataforma) 
+        VALUES ( 'nombre', 'descripcion', 'url', '{$_POST['id-genero']}', '{$_POST['id-plataforma']}')";
+$resAlta = $link->query($alta);
 
 $_SESSION['alta-exitosa'] = true; //si no hay errores envia true a index
 header("Location: index.php");

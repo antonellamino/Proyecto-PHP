@@ -43,7 +43,7 @@ print_r ($_POST); //DEBUG, eliminar para entrega
 
 <!-- formulario para agregar juego -->
 <div class="agregar-juego">
-    <form class="form-juego" id="form-alta-juego" method="post" action="validar-dar-de-alta.php">
+    <form class="form-juego" id="form-alta-juego" method="post" action="validar-dar-de-alta.php" enctype="multipart/form-data">
 
         <h2>Agregar un juego nuevo</h2>
 
