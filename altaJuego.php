@@ -1,3 +1,20 @@
+<?php   
+require_once "conexionBD.php";
+session_start();
+
+
+
+$juegos = "SELECT * FROM juegos";
+$resJuegos = $link->query($juegos);
+$generos = "SELECT nombre, id FROM generos";
+$resGeneros = $link->query($generos);
+$plataformas = "SELECT * FROM plataformas";
+$resPlataformas = $link->query($plataformas);
+
+print_r ($_POST); //DEBUG, eliminar para entrega
+
+?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -6,7 +23,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./estilos.css">
-    <title>Document</title>
+    <title>Gameland - agregar juego</title>
 </head>
 <body>
     
@@ -26,40 +43,65 @@
 
 <!-- formulario para agregar juego -->
 <div class="agregar-juego">
-    <form class="form-juego" id="form-alta-juego" method="post" action="validar_alta_juego.php">
+    <form class="form-juego" id="form-alta-juego" method="post" action="validar-dar-de-alta.php">
+
         <h2>Agregar un juego nuevo</h2>
+
         <label for="" >Nombre</label>
+        <?php if (isset($_SESSION['nom-error'])){
+                echo "El campo nombre no puede estar vacio";
+                unset($_SESSION['nom-error']);
+            } ?>
         <input type="text" id="form-nombre" name="nombre">
 
         <label for="" id="form-img">Imagen</label>
+        <?php if (isset($_SESSION['img-error'])){
+                echo "Se debe seleccionar una imagen";
+                unset($_SESSION['img-error']);
+            } ?>
         <input class="btn-img-form" name="imagen" type="file">
 
         <label for="">Descripcion</label>
+        <?php if (isset($_SESSION['des-error'])){
+                echo "La descripcion no puede tener mas de 255 caracteres";
+                unset($_SESSION['des-error']);
+            } ?>
         <textarea name="descripcion" cols="85" rows="6"></textarea>
 
-        <label for="" id="form-genero">Genero</label>
-        <select name="generos" id="genero" >
-            <option name="seleccionar-genero" value="">Seleccionar</option>
-            <option value="terror">Terror</option>
-            <option value="RPG">rpg</option>
-            <option value="accion">Accion</option>
-            <option value="aventura">Aventura</option> <!--dar estilos al menu desplegable-->
+        <label for="id-genero" id="form-genero">Genero</label>
+        <?php if (isset($_SESSION['gen-error'])){
+                echo "Se debe seleccionar un genero";
+                unset($_SESSION['gen-error']);
+            } ?>
+        <select name="id-genero" id="form-genero"> <!--id se asocia con el name del select-->
+            <option disabled selected value>Seleccionar</option>
+            <?php while ($row = $resGeneros->fetch_assoc()){?>
+            <?php echo "<option value=\"" . $row["id"] . "\">" . $row["nombre"] . "</option>"; ?>
+            <?php } ?>
         </select>
 
-        <label for="" id="form-plat">Plataforma</label>
-        <select name="plataformas" id="plataforma" >Plataforma
-            <option name="seleccionar-plataforma" value="">Seleccionar</option>
-            <option value="windows">Windows</option>
-            <option value="android">Android</option>
-            <option value="playstation">PlayStation</option> 
-            <option value="macos">MacOS</option><!--dar estilos al menu desplegable-->
+        <label for="id-plataforma" id="form-plataforma"> Plataforma </label>
+        <?php if (isset($_SESSION['plat-error'])){
+                echo "Se debe seleccionar una plataforma";
+                unset($_SESSION['plat-error']);
+            } ?>
+        <select name="id-plataforma" id="form-plataforma">
+            <option disabled selected value>Seleccionar</option>
+            <?php while ($row = $resPlataformas->fetch_assoc()){?>
+            <?php echo "<option value=\"" . $row["id"] . "\">" . $row["nombre"] . "</option>"; ?>
+            <?php } ?>
         </select>
 
         <label for="" id="form-url">Ruta</label>
+        <?php if (isset($_SESSION['url-error'])){
+                echo "La ruta no puede tener mas de 80 caracteres";
+                unset($_SESSION['url-error']);
+            } ?>
         <input type="text" id="url" name="url">
+
         <button type="submit" name="submit">Agregar juego</button>
     </form>
-    <a class="btn-b" href="./index2.php">Volver</a>
+    <a class="btn-b" href="./index.php">Volver</a>
 
 </div>
 
