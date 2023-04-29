@@ -11,6 +11,10 @@ $resGeneros = $link->query($generos);
 $plataformas = "SELECT * FROM plataformas";
 $resPlataformas = $link->query($plataformas);
 
+//traer imagenes de la bd
+$img = "SELECT imagen FROM juegos";
+$resImg = $link->query($juegos);
+
 print_r ($_POST); //DEBUG, eliminar para entrega
 
 ?>
@@ -30,7 +34,7 @@ print_r ($_POST); //DEBUG, eliminar para entrega
 <!------- encabezado, logo e imagen tipo banner-------->
 <header>
     <div class="titulo">
-        <a href="./index2.php">
+        <a href="./index.php">
             <img class="logo" src="./img/logo.svg" alt=""></a>
         <h1>GAMELAND</h1>
     </div>
@@ -54,12 +58,14 @@ print_r ($_POST); //DEBUG, eliminar para entrega
             } ?>
         <input type="text" id="form-nombre" name="nombre">
 
-        <label for="" id="form-img">Imagen</label>
+
+        <label for="imagen" name="imagen" id="form-img">Imagen</label>
         <?php if (isset($_SESSION['img-error'])){
                 echo "Se debe seleccionar una imagen";
                 unset($_SESSION['img-error']);
             } ?>
         <input class="btn-img-form" name="imagen" type="file">
+
 
         <label for="">Descripcion</label>
         <?php if (isset($_SESSION['des-error'])){
@@ -67,6 +73,7 @@ print_r ($_POST); //DEBUG, eliminar para entrega
                 unset($_SESSION['des-error']);
             } ?>
         <textarea name="descripcion" cols="85" rows="6"></textarea>
+
 
         <label for="id-genero" id="form-genero">Genero</label>
         <?php if (isset($_SESSION['gen-error'])){
@@ -80,6 +87,7 @@ print_r ($_POST); //DEBUG, eliminar para entrega
             <?php } ?>
         </select>
 
+
         <label for="id-plataforma" id="form-plataforma"> Plataforma </label>
         <?php if (isset($_SESSION['plat-error'])){
                 echo "Se debe seleccionar una plataforma";
@@ -92,6 +100,7 @@ print_r ($_POST); //DEBUG, eliminar para entrega
             <?php } ?>
         </select>
 
+
         <label for="" id="form-url">Ruta</label>
         <?php if (isset($_SESSION['url-error'])){
                 echo "La ruta no puede tener mas de 80 caracteres";
@@ -99,13 +108,13 @@ print_r ($_POST); //DEBUG, eliminar para entrega
             } ?>
         <input type="text" id="url" name="url">
 
+
         <button type="submit" name="submit">Agregar juego</button>
     </form>
     <a class="btn-b" href="./index.php">Volver</a>
 
 </div>
 
-<!-- <script src="validarAltaJuego.js"></script> -->
 <footer>Miño Erika Antonella - Cotignola Griselda Soledad - 2023</footer>
 
 </body>

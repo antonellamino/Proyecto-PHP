@@ -4,9 +4,7 @@ session_start();
 
 
 //SI SE CLIQUEA EL BOTON AGREGAR JUEGO, SE VIENEN A HACER LOS CHEQUEOS
-//CONSULTAR SI HAY QUE PERSONALIZAR LOS MENSAJES
 
-$mensaje = ""; //sacar
 if (isset($_POST['submit'])){
     
     $esta_ok = true; //sirve para chequear si hay algun error y redirigir a alta juego
@@ -21,13 +19,9 @@ if (isset($_POST['submit'])){
     }
 
     //chequeo de imagen
-    if(empty($_POST['imagen'])){
+    if(empty($_FILES['imagen'])){
         $_SESSION['img-error'] = true;
         $esta_ok = false;
-        $img = $_FILES; //no se como acceder al nombrede la img
-        $contenidoBinario = file_get_contents($img);
-        $imgencode = base64_encode($img);
-        //insertar
     }
 
     //chequeo descripcion max 255 caracteres
@@ -59,10 +53,15 @@ if (isset($_POST['submit'])){
         die();
     }
 }
+    
+//encodear imagen
+$imgAinsertar = (file_get_contents($_FILES['imagen']['tmp_name']));
+$conv = base64_encode($imgAinsertar);
+$tipo = $_FILES['imagen']['type'];
+$tipoE = explode("/", $tipo);
 
-
-$alta = "INSERT INTO juegos (nombre, descripcion, url, id_genero, id_plataforma) 
-        VALUES ( 'nombre', 'descripcion', 'url', '{$_POST['id-genero']}', '{$_POST['id-plataforma']}')";
+$alta = "INSERT INTO juegos (nombre, imagen, tipo_imagen, descripcion, url, id_genero, id_plataforma) 
+        VALUES ('{$_POST['nombre']}', '$conv', '$tipoE[1]', '{$_POST['descripcion']}', '{$_POST['url']}', '{$_POST['id-genero']}', '{$_POST['id-plataforma']}')";
 $resAlta = $link->query($alta);
 
 $_SESSION['alta-exitosa'] = true; //si no hay errores envia true a index
@@ -70,7 +69,3 @@ header("Location: index.php");
 die();
 
 ?>
-
-<!-- //CONSULTAS:    imagen, como hacemos para subirla
-                como enviamos un id auto incremental, lo mismo con las img 
-                cuando usar get, usar get?-->

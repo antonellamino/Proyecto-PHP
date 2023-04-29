@@ -1,5 +1,6 @@
 <?php   
 require_once "conexionBD.php";
+//para filtrar usar get
 
 session_start();
 
@@ -14,9 +15,8 @@ $generos = "SELECT nombre, id FROM generos";
 $resGeneros = $link->query($generos);
 $plataformas = "SELECT * FROM plataformas";
 $resPlataformas = $link->query($plataformas);
-$ocultar = false;
 
-print_r ($_POST); //DEBUG, eliminar para entrega
+// print_r ($_POST); //DEBUG, eliminar para entrega
 
 
 ?>
@@ -38,7 +38,7 @@ print_r ($_POST); //DEBUG, eliminar para entrega
     <!------- encabezado, logo e imagen tipo banner-------->
     <header>
         <div>
-            <a href="./index2.php">
+            <a href="./index.php">
                 <img class="logo" src="./img/logo.svg" alt=""></a>
             <h1>GAMELAND</h1>
         </div>
@@ -151,7 +151,7 @@ print_r ($_POST); //DEBUG, eliminar para entrega
                     <li>
                         <ul class="card-juego">
                             <div class="card-juegos-item">
-                                <li><img src="data:image/jpeg;base64,XXXXXXXXXXXXXXXXXXXXX" alt=""></li>
+                                <img class="card-img" src="data:image/<?php echo ($row['tipo_imagen'])?>;base64;, <?php echo $row['imagen']?>" alt="">
                                 <li>NOMBRE: <?php echo $row["nombre"]; ?></li>
                                 <li>DESCRIPCION: <?php echo $row["descripcion"]; ?> </li>
                                 <li>GENERO: <?php echo $row["nombre_genero"]; ?></li>
@@ -164,11 +164,6 @@ print_r ($_POST); //DEBUG, eliminar para entrega
             </div>
     <?php }
         }?>
-
-
-
-    <!----------- juegos disponibles------------->
-    <!-- aca iria la imagen -->
 
 
 
