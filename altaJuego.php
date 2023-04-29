@@ -15,7 +15,7 @@ $resPlataformas = $link->query($plataformas);
 $img = "SELECT imagen FROM juegos";
 $resImg = $link->query($juegos);
 
-print_r ($_POST); //DEBUG, eliminar para entrega
+// print_r ($_POST); //DEBUG, eliminar para entrega
 
 ?>
 
