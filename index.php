@@ -16,7 +16,7 @@ $resGeneros = $link->query($generos);
 $plataformas = "SELECT * FROM plataformas";
 $resPlataformas = $link->query($plataformas);
 
-// print_r ($_POST); //DEBUG, eliminar para entrega
+// print_r ($_GET); //DEBUG, eliminar para entrega
 
 
 ?>
@@ -53,7 +53,7 @@ $resPlataformas = $link->query($plataformas);
 
 
     <!--------formulario para filtrar--------->
-    <form method="POST" action="index.php"> 
+    <form method="GET" action="index.php"> 
         <h2>Filtrar juego por: </h2>
         <label for="nombre">Nombre del juego: </label>
         <input type="text" name="juego_a_buscar" id="nombre">
@@ -95,26 +95,26 @@ $resPlataformas = $link->query($plataformas);
 
 
     <!---------- COMPORTAMIENTO BOTON FILTRAR ---------->
-    <?php if(isset($_POST['filtrar'])){
+    <?php if(isset($_GET['filtrar'])){
         //FILTRAR POR JUEGO
-        if((!empty($_POST['juego_a_buscar'])) and (empty($_POST['filtro_genero'])) and (empty($_POST['filtro_plataforma']))){
-            $nombre = $_POST['juego_a_buscar'];
+        if((!empty($_GET['juego_a_buscar'])) and (empty($_GET['filtro_genero'])) and (empty($_GET['filtro_plataforma']))){
+            $nombre = $_GET['juego_a_buscar'];
             $consulta = "WHERE j.nombre LIKE '%$nombre%' ";
             ordenar($consulta);
             imprimirDatos($consulta);
             }   
         
         //FILTRAR POR GENERO
-        if(empty($_POST['juego_a_buscar']) and !empty($_POST['filtro_genero']) and empty($_POST['filtro_plataforma'])){
-            $genero = $_POST['filtro_genero'];
+        if(empty($_GET['juego_a_buscar']) and !empty($_GET['filtro_genero']) and empty($_GET['filtro_plataforma'])){
+            $genero = $_GET['filtro_genero'];
             $consulta = "WHERE j.id_genero = $genero";
             ordenar($consulta);
             imprimirDatos($consulta);
         }
 
         //FILTRAR POR PLATAFORMA
-        if(!empty($_POST['filtro_plataforma']) and empty($_POST['filtro_genero']) and empty($_POST['juego_a_buscar'])){
-            $plataforma = $_POST['filtro_plataforma'];
+        if(!empty($_GET['filtro_plataforma']) and empty($_GET['filtro_genero']) and empty($_GET['juego_a_buscar'])){
+            $plataforma = $_GET['filtro_plataforma'];
             $consulta = "WHERE j.id_plataforma = $plataforma";
             ordenar($consulta);
             imprimirDatos($consulta);
@@ -127,8 +127,8 @@ $resPlataformas = $link->query($plataformas);
 
 
     function ordenar(&$consulta){ //&se usa para pasar variables por referencia en la funcion
-        if(!empty($_POST['filtro_ordenar'])){
-            if($_POST['filtro_ordenar'] == "asc"){
+        if(!empty($_GET['filtro_ordenar'])){
+            if($_GET['filtro_ordenar'] == "asc"){
                 $consulta .= " ORDER BY j.nombre ASC";
             }
             else {
