@@ -1,13 +1,9 @@
 <?php   
 require_once "conexionBD.php";
-//para filtrar usar get
 
 session_start();
 
-if (isset($_SESSION['alta-exitosa'])){ //valida que se haya seteado el alta exitosa, si se seteo es xq todos los campos estan
-    echo "Se agrego un juego";
-    unset($_SESSION['alta-exitosa']); //la limpio para que no quede seteada
-}
+
 
 $juegos = "SELECT * FROM juegos";
 $resJuegos = $link->query($juegos);
@@ -17,8 +13,6 @@ $plataformas = "SELECT * FROM plataformas";
 $resPlataformas = $link->query($plataformas);
 
 // print_r ($_GET); //DEBUG, eliminar para entrega
-
-
 ?>
 
 <!DOCTYPE html>
@@ -49,8 +43,10 @@ $resPlataformas = $link->query($plataformas);
     </header>
 
     
-
-
+<?php if (isset($_SESSION['alta-exitosa'])){ //valida que se haya seteado el alta exitosa, si se seteo es xq todos los campos estan
+    echo "<h3>Se agregó un juego</h3>";
+    unset($_SESSION['alta-exitosa']); //la limpio para que no quede seteada
+}?>
 
     <!--------formulario para filtrar--------->
     <form method="GET" action="index.php"> 

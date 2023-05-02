@@ -19,9 +19,24 @@ if (isset($_POST['submit'])){
     }
 
     //chequeo de imagen
-    if(empty($_FILES['imagen'])){
+    if(empty($_FILES['imagen'])){ //si esta vacio que mande el error, si no, que chequee q sea una img
         $_SESSION['img-error'] = true;
         $esta_ok = false;
+    } else {
+        $type = $_FILES['imagen']['type']; //si no es una imagen tiene que redirigir
+        if($type != "image/jpg" and $type != "image/jpeg" and $type != "image/png"){
+            $_SESSION['img-invalida'] = true;
+            $esta_ok = false;
+        }
+    }
+
+    if(!isset($_SESSION['img-error']) and !isset($_SESSION['img-invalida'])){
+        $imgAinsertar = (file_get_contents($_FILES['imagen']['tmp_name']));
+        $conv = base64_encode($imgAinsertar);
+        if(strlen($conv) > 65535){ //tamanio maximo del campo text en mysql 
+            $_SESSION['img-tamanio-invalido'] = true;
+            $esta_ok = false;
+        }
     }
 
     //chequeo descripcion max 255 caracteres
@@ -65,7 +80,7 @@ $alta = "INSERT INTO juegos (nombre, imagen, tipo_imagen, descripcion, url, id_g
 $resAlta = $link->query($alta);
 
 $_SESSION['alta-exitosa'] = true; //si no hay errores envia true a index
-header("Location: index.php");
-die();
+    header("Location: index.php");
+    die();
 
 ?>

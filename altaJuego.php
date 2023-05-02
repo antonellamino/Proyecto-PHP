@@ -10,13 +10,7 @@ $generos = "SELECT nombre, id FROM generos";
 $resGeneros = $link->query($generos);
 $plataformas = "SELECT * FROM plataformas";
 $resPlataformas = $link->query($plataformas);
-
-//traer imagenes de la bd
-$img = "SELECT imagen FROM juegos";
-$resImg = $link->query($juegos);
-
 // print_r ($_POST); //DEBUG, eliminar para entrega
-
 ?>
 
 
@@ -63,7 +57,13 @@ $resImg = $link->query($juegos);
         <?php if (isset($_SESSION['img-error'])){
                 echo "Se debe seleccionar una imagen";
                 unset($_SESSION['img-error']);
-            } ?>
+            } else if(isset($_SESSION['img-invalida'])){
+                echo "Se debe seleccionar una imagen de tipo .jpg, .jpeg, .pgn";
+                unset($_SESSION['img-invalida']);
+            } else if (isset($_SESSION['img-tamanio-invalido'])){
+                echo "La imagen excede el tamanio maximo";
+                unset($_SESSION['img-tamanio-invalido']);
+            }?>
         <input class="btn-img-form" name="imagen" type="file">
 
 
