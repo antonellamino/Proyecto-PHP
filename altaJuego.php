@@ -41,7 +41,7 @@ $resPlataformas = $link->query($plataformas);
 
 <!-- formulario para agregar juego -->
 <div class="agregar-juego">
-    <form class="form-juego" id="form-alta-juego" method="post" action="validar-dar-de-alta.php" enctype="multipart/form-data">
+    <form class="form-juego" id="form-alta-juego" method="post" action="validar-dar-de-alta.php" onsubmit="return validarAltaJuego()" enctype="multipart/form-data">
 
         <h2>Agregar un juego nuevo</h2>
 
@@ -58,13 +58,13 @@ $resPlataformas = $link->query($plataformas);
                 echo "Se debe seleccionar una imagen";
                 unset($_SESSION['img-error']);
             } else if(isset($_SESSION['img-invalida'])){
-                echo "Se debe seleccionar una imagen de tipo .jpg, .jpeg, .pgn";
+                echo "Se debe seleccionar una imagen de tipo .jpg, .jpeg, .png";
                 unset($_SESSION['img-invalida']);
             } else if (isset($_SESSION['img-tamanio-invalido'])){
                 echo "La imagen excede el tamanio maximo";
                 unset($_SESSION['img-tamanio-invalido']);
             }?>
-        <input class="btn-img-form" name="imagen" type="file">
+        <input class="btn-img-form" name="imagen" type="file" id="imagen">
 
 
         <label for="">Descripcion</label>
@@ -72,10 +72,10 @@ $resPlataformas = $link->query($plataformas);
                 echo "La descripcion no puede tener mas de 255 caracteres";
                 unset($_SESSION['des-error']);
             } ?>
-        <textarea name="descripcion" cols="85" rows="6"></textarea>
+        <textarea name="descripcion" cols="85" rows="6" id="descripcion"></textarea>
 
 
-        <label for="id-genero" id="form-genero">Genero</label>
+        <label for="id-genero">Genero</label>
         <?php if (isset($_SESSION['gen-error'])){
                 echo "Se debe seleccionar un genero";
                 unset($_SESSION['gen-error']);
@@ -88,7 +88,7 @@ $resPlataformas = $link->query($plataformas);
         </select>
 
 
-        <label for="id-plataforma" id="form-plataforma"> Plataforma </label>
+        <label for="id-plataforma"> Plataforma </label>
         <?php if (isset($_SESSION['plat-error'])){
                 echo "Se debe seleccionar una plataforma";
                 unset($_SESSION['plat-error']);
@@ -116,6 +116,6 @@ $resPlataformas = $link->query($plataformas);
 </div>
 
 <footer>Miño Erika Antonella - Cotignola Griselda Soledad - 2023</footer>
-
+<script src="validarAltaJuego.js"></script>
 </body>
 </html>

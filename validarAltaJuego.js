@@ -5,9 +5,9 @@ function validarAltaJuego() {
     let nombre = document.getElementById('form-nombre').value; 
     let img = document.getElementById('imagen').files; //devuelve una lista de archivos
     let descripcion = document.getElementById('descripcion').value;
-    let genero = document.getElementById('genero');
+    let genero = document.getElementById('form-genero');
     let opcionGenero = genero.options[genero.selectedIndex].value; //devuelve el valor de la opcion elegida
-    let plataforma = document.getElementById('plataforma');
+    let plataforma = document.getElementById('form-plataforma');
     let opcionPlataforma = plataforma.options[plataforma.selectedIndex].value; //develve el valor de la opcion elegida
     let url = document.getElementById('url').value;
     let alerta= "";
@@ -28,7 +28,7 @@ function validarAltaJuego() {
         valido = false;
     }
 
-    if (opcionGenero === 'seleccionar-genero'){
+    if (opcionGenero === ""){
         alerta += 'Seleccionar genero. ';
         valido = false;
     }
@@ -39,7 +39,7 @@ function validarAltaJuego() {
     }
 
     
-    if (opcionPlataforma === 'seleccionar-plataforma') { //chequeo si el valor que tengo es el valor de la opcion seleccionar, significa que no fue seleccionado ninguna plataforma, si no devolveria el valor de alguna plataforma permitida
+    if (opcionPlataforma === "") { //chequeo si el valor que tengo es el valor de la opcion seleccionar, significa que no fue seleccionado ninguna plataforma, si no devolveria el valor de alguna plataforma permitida
         alerta += ' Seleccionar una plataforma.';
         valido = false;
     }
@@ -50,6 +50,3 @@ function validarAltaJuego() {
     
     return valido;
 }
-
-//VER LO DE EL CODIGO REPETIDO EN LOS ESTILOS
-//VER PORQUE ESTA MANDANDO UN ALERT VACIO, LO DEMAS ESTA OK

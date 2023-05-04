@@ -2,7 +2,6 @@
 include_once "conexionBD.php";
 session_start();
 
-
 //SI SE CLIQUEA EL BOTON AGREGAR JUEGO, SE VIENEN A HACER LOS CHEQUEOS
 
 if (isset($_POST['submit'])){
@@ -33,14 +32,14 @@ if (isset($_POST['submit'])){
     if(!isset($_SESSION['img-error']) and !isset($_SESSION['img-invalida'])){
         $imgAinsertar = (file_get_contents($_FILES['imagen']['tmp_name']));
         $conv = base64_encode($imgAinsertar);
-        if(strlen($conv) > 65535){ //tamanio maximo del campo text en mysql 
+        if(strlen($conv) > 4294967295){ //tamanio maximo del campo longtext en mysql 
             $_SESSION['img-tamanio-invalido'] = true;
             $esta_ok = false;
         }
     }
 
     //chequeo descripcion max 255 caracteres
-    if (strlen($_POST['descripcion']) > 10) { //puse 10 para que sea mas facil de probar
+    if (strlen($_POST['descripcion']) > 255) { //puse 10 para que sea mas facil de probar
         $_SESSION['des-error'] = true;
         $esta_ok = false;
     }
@@ -52,7 +51,7 @@ if (isset($_POST['submit'])){
     }
 
     //chequeo la cant de caracteres de la url (80)
-    if(strlen($_POST['url']) > 10){ //puse 10 para probar
+    if(strlen($_POST['url']) > 80){ //puse 10 para probar
         $_SESSION['url-error']=true;
         $esta_ok = false;
     }

@@ -91,7 +91,8 @@ $resPlataformas = $link->query($plataformas);
 
 
     <!---------- COMPORTAMIENTO BOTON FILTRAR ---------->
-    <?php if(isset($_GET['filtrar'])){
+    <?php
+    if(isset($_GET['filtrar'])){
         //FILTRAR POR JUEGO
         if((!empty($_GET['juego_a_buscar'])) and (empty($_GET['filtro_genero'])) and (empty($_GET['filtro_plataforma']))){
             $nombre = $_GET['juego_a_buscar'];
@@ -115,6 +116,10 @@ $resPlataformas = $link->query($plataformas);
             ordenar($consulta);
             imprimirDatos($consulta);
         }
+        
+        if(empty($_GET['filtro_plataforma']) and empty($_GET['filtro_genero']) and empty($_GET['juego_a_buscar'])){
+            echo " -------- no se selecciono filtro -------";
+        } //AGREGADO HOY, personalizar
     }
     else {
         imprimirDatos(""); //MUESTRA LA LISTA PORQUE entra a traves del get , el post esta vacio
@@ -158,6 +163,7 @@ $resPlataformas = $link->query($plataformas);
                     </li>
                 </ul>
             </div>
+            
     <?php }
         }?>
 
