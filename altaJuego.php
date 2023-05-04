@@ -50,7 +50,7 @@ $resPlataformas = $link->query($plataformas);
                 echo "El campo nombre no puede estar vacio";
                 unset($_SESSION['nom-error']);
             } ?>
-        <input type="text" id="form-nombre" name="nombre">
+        <input type="text" id="form-nombre" name="nombre" value="">
 
 
         <label for="imagen" name="imagen" id="form-img">Imagen</label>
@@ -81,9 +81,9 @@ $resPlataformas = $link->query($plataformas);
                 unset($_SESSION['gen-error']);
             } ?>
         <select name="id-genero" id="form-genero"> <!--id se asocia con el name del select-->
-            <option disabled selected value>Seleccionar</option>
+            <option disabled value>Seleccionar</option>
             <?php while ($row = $resGeneros->fetch_assoc()){?>
-            <?php echo "<option value=\"" . $row["id"] . "\">" . $row["nombre"] . "</option>"; ?>
+            <option <?php echo (isset($_SESSION['dato-form']['id-genero']) and ($_SESSION['dato-form']['id-genero'] == $row['id'])) ? 'selected' : '' ?> value="<?php echo $row["id"] ?>"> <?php echo $row["nombre"] ?> </option>
             <?php } ?>
         </select>
 
@@ -94,9 +94,9 @@ $resPlataformas = $link->query($plataformas);
                 unset($_SESSION['plat-error']);
             } ?>
         <select name="id-plataforma" id="form-plataforma">
-            <option disabled selected value>Seleccionar</option>
+            <option disabled value>Seleccionar</option>
             <?php while ($row = $resPlataformas->fetch_assoc()){?>
-            <?php echo "<option value=\"" . $row["id"] . "\">" . $row["nombre"] . "</option>"; ?>
+            <option <?php echo (isset($_SESSION['dato-form']['id-plataforma']) and ($_SESSION['dato-form']['id-plataforma'] == $row['id'])) ? 'selected' : '' ?> value="<?php echo $row["id"] ?>"> <?php echo $row["nombre"] ?> </option>
             <?php } ?>
         </select>
 
@@ -119,3 +119,4 @@ $resPlataformas = $link->query($plataformas);
 <script src="validarAltaJuego.js"></script>
 </body>
 </html>
+

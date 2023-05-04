@@ -51,7 +51,7 @@ if (isset($_POST['submit'])){
     }
 
     //chequeo la cant de caracteres de la url (80)
-    if(strlen($_POST['url']) > 80){ //puse 10 para probar
+    if(strlen($_POST['url']) > 80){
         $_SESSION['url-error']=true;
         $esta_ok = false;
     }
@@ -63,6 +63,7 @@ if (isset($_POST['submit'])){
     }
 
     if(!$esta_ok){
+        //agregar variable para datos
         header("Location: altaJuego.php"); //si hay errores redirige
         die();
     }

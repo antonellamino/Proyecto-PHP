@@ -56,7 +56,7 @@ $resPlataformas = $link->query($plataformas);
 
 
         <label for="genero"> Genero </label>
-        <select name="filtro_genero" id="genero"> <!--id se asocia con el name del select-->
+        <select name="filtro_genero" id="genero">
             <option disabled selected value>Seleccionar</option>
             <?php while ($row = $resGeneros->fetch_assoc()){?>
             <?php echo "<option value=\"" . $row["id"] . "\">" . $row["nombre"] . "</option>"; ?>
