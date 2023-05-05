@@ -12,7 +12,6 @@ $resGeneros = $link->query($generos);
 $plataformas = "SELECT * FROM plataformas";
 $resPlataformas = $link->query($plataformas);
 
-// print_r ($_GET); //DEBUG, eliminar para entrega
 ?>
 
 <!DOCTYPE html>
@@ -43,39 +42,39 @@ $resPlataformas = $link->query($plataformas);
     </header>
 
     
-<?php if (isset($_SESSION['alta-exitosa'])){ //valida que se haya seteado el alta exitosa, si se seteo es xq todos los campos estan
+<?php if (isset($_SESSION['alta-exitosa'])){
     echo "<h3>Se agregó un juego</h3>";
-    unset($_SESSION['alta-exitosa']); //la limpio para que no quede seteada
+    unset($_SESSION['alta-exitosa']);
 }?>
 
     <!--------formulario para filtrar--------->
     <form method="GET" action="index.php"> 
         <h2>Filtrar juego por: </h2>
         <label for="nombre">Nombre del juego: </label>
-        <input type="text" name="juego_a_buscar" id="nombre">
+        <input type="text" name="juego_a_buscar" id="nombre" value="<?php echo (isset($_GET['juego_a_buscar'])) ? $_GET['juego_a_buscar'] : '' ;?>">
 
 
         <label for="genero"> Genero </label>
         <select name="filtro_genero" id="genero">
-            <option disabled selected value>Seleccionar</option>
+            <option selected value>Seleccionar</option>
             <?php while ($row = $resGeneros->fetch_assoc()){?>
-            <?php echo "<option value=\"" . $row["id"] . "\">" . $row["nombre"] . "</option>"; ?>
+            <option <?php echo (!empty($_GET['filtro_genero']) and ($_GET['filtro_genero'] == $row['id'])) ? 'selected' : '' ?> value="<?php echo $row["id"] ?>"> <?php echo $row["nombre"] ?> </option>
             <?php } ?>
         </select>
 
 
         <label for="plataforma"> Plataforma </label>
         <select name="filtro_plataforma" id="plataforma">
-            <option disabled selected value>Seleccionar</option>
+            <option <?php echo (!empty($_GET['filtro_plataforma']) || (empty($_GET['filtro_plataforma']))) ? 'selected' : '' ?>  value>Seleccionar</option>
             <?php while ($row = $resPlataformas->fetch_assoc()){?>
-            <?php echo "<option value=\"" . $row["id"] . "\">" . $row["nombre"] . "</option>"; ?>
+            <option <?php echo (!empty($_GET['filtro_plataforma']) and ($_GET['filtro_plataforma'] == $row['id'])) ? 'selected' : '' ?> value="<?php echo $row["id"] ?>"> <?php echo $row["nombre"] ?> </option>
             <?php } ?>
         </select>
 
 
         <label for="ordenar">Ordenar: </label>
         <select name="filtro_ordenar" id="ordenar">
-            <option disabled selected value>Seleccionar</option>
+            <option disabled value>Seleccionar</option>
             <option value="asc">A-Z</option>
             <option value="desc">Z-A</option>
         </select>
@@ -119,15 +118,22 @@ $resPlataformas = $link->query($plataformas);
         
         if(empty($_GET['filtro_plataforma']) and empty($_GET['filtro_genero']) and empty($_GET['juego_a_buscar'])){
             echo " -------- no se selecciono filtro -------";
-        } //AGREGADO HOY, personalizar
+        }
+
+        if((empty($_GET['filtro_plataforma']) and !empty($_GET['filtro_genero']) and !empty($_GET['juego_a_buscar'])) ||
+            (!empty($_GET['filtro_plataforma']) and empty($_GET['filtro_genero']) and !empty($_GET['juego_a_buscar'])) ||
+            (!empty($_GET['filtro_plataforma']) and !empty($_GET['filtro_genero']) and empty($_GET['juego_a_buscar'])) ||
+            (!empty($_GET['filtro_plataforma']) and !empty($_GET['filtro_genero']) and !empty($_GET['juego_a_buscar']))){
+            echo " -------- no se puede seleccionar mas de un filtro a la vez -------";
+        } 
     }
     else {
-        imprimirDatos(""); //MUESTRA LA LISTA PORQUE entra a traves del get , el post esta vacio
+        imprimirDatos("");
     }
 
 
 
-    function ordenar(&$consulta){ //&se usa para pasar variables por referencia en la funcion
+    function ordenar(&$consulta){
         if(!empty($_GET['filtro_ordenar'])){
             if($_GET['filtro_ordenar'] == "asc"){
                 $consulta .= " ORDER BY j.nombre ASC";

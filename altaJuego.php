@@ -38,10 +38,14 @@ $resPlataformas = $link->query($plataformas);
     </div>
 </header>  
 
+<?php 
+    if (!isset($_SESSION['dato-form']))
+        $_SESSION['dato-form'] = array();
+?>
 
 <!-- formulario para agregar juego -->
 <div class="agregar-juego">
-    <form class="form-juego" id="form-alta-juego" method="post" action="validar-dar-de-alta.php" onsubmit="return validarAltaJuego()" enctype="multipart/form-data">
+    <form class="form-juego" id="form-alta-juego" method="post" action="validar-dar-de-alta.php" onsubmit="return validarAltaJuego()" enctype="multipart/form-data"> 
 
         <h2>Agregar un juego nuevo</h2>
 
@@ -50,7 +54,7 @@ $resPlataformas = $link->query($plataformas);
                 echo "El campo nombre no puede estar vacio";
                 unset($_SESSION['nom-error']);
             } ?>
-        <input type="text" id="form-nombre" name="nombre" value="">
+        <input type="text" id="form-nombre" name="nombre" value="<?php echo (isset($_SESSION['dato-form']['nombre'])) ? $_SESSION['dato-form']['nombre'] : '' ;?>">
 
 
         <label for="imagen" name="imagen" id="form-img">Imagen</label>
@@ -72,8 +76,7 @@ $resPlataformas = $link->query($plataformas);
                 echo "La descripcion no puede tener mas de 255 caracteres";
                 unset($_SESSION['des-error']);
             } ?>
-        <textarea name="descripcion" cols="85" rows="6" id="descripcion"></textarea>
-
+        <input style="width:60%; height:100px;" name="descripcion"  id="descripcion" value="<?php echo (isset($_SESSION['dato-form']['descripcion'])) ? $_SESSION['dato-form']['descripcion'] : ''; ?>"></input>
 
         <label for="id-genero">Genero</label>
         <?php if (isset($_SESSION['gen-error'])){
@@ -81,7 +84,7 @@ $resPlataformas = $link->query($plataformas);
                 unset($_SESSION['gen-error']);
             } ?>
         <select name="id-genero" id="form-genero"> <!--id se asocia con el name del select-->
-            <option disabled value>Seleccionar</option>
+            <option disabled <?php echo (!isset($_SESSION['dato-form']['id-genero']) || (empty($_SESSION['dato-form']['id-genero']))) ? 'selected' : '' ?> value>Seleccionar</option>
             <?php while ($row = $resGeneros->fetch_assoc()){?>
             <option <?php echo (isset($_SESSION['dato-form']['id-genero']) and ($_SESSION['dato-form']['id-genero'] == $row['id'])) ? 'selected' : '' ?> value="<?php echo $row["id"] ?>"> <?php echo $row["nombre"] ?> </option>
             <?php } ?>
@@ -94,7 +97,7 @@ $resPlataformas = $link->query($plataformas);
                 unset($_SESSION['plat-error']);
             } ?>
         <select name="id-plataforma" id="form-plataforma">
-            <option disabled value>Seleccionar</option>
+            <option disabled <?php echo (!isset($_SESSION['dato-form']['id-plataforma']) || (empty($_SESSION['dato-form']['id-plataforma']))) ? 'selected' : '' ?> value>Seleccionar</option>
             <?php while ($row = $resPlataformas->fetch_assoc()){?>
             <option <?php echo (isset($_SESSION['dato-form']['id-plataforma']) and ($_SESSION['dato-form']['id-plataforma'] == $row['id'])) ? 'selected' : '' ?> value="<?php echo $row["id"] ?>"> <?php echo $row["nombre"] ?> </option>
             <?php } ?>
@@ -106,7 +109,7 @@ $resPlataformas = $link->query($plataformas);
                 echo "La ruta no puede tener mas de 80 caracteres";
                 unset($_SESSION['url-error']);
             } ?>
-        <input type="text" id="url" name="url">
+        <input type="text" id="url" name="url" value="<?php echo (isset($_SESSION['dato-form']['url'])) ? $_SESSION['dato-form']['url'] : '' ; ?>">
 
 
         <button type="submit" name="submit">Agregar juego</button>
@@ -120,3 +123,6 @@ $resPlataformas = $link->query($plataformas);
 </body>
 </html>
 
+<?php 
+    $_SESSION['dato-form'] = array();
+?>

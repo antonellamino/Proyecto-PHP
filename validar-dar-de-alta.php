@@ -2,20 +2,17 @@
 include_once "conexionBD.php";
 session_start();
 
-//SI SE CLIQUEA EL BOTON AGREGAR JUEGO, SE VIENEN A HACER LOS CHEQUEOS
 
 if (isset($_POST['submit'])){
     
-    $esta_ok = true; //sirve para chequear si hay algun error y redirigir a alta juego
+    $esta_ok = true;
 
     //chequeo de nombre
     if(empty($_POST['nombre'])){
         $_SESSION['nom-error'] = true;
         $esta_ok = false; 
     }
-    else {
-        $nombreJuego = $_POST['nombre'];
-    }
+    $_SESSION['dato-form']['nombre'] = $_POST['nombre'];
 
     //chequeo de imagen
     if(empty($_FILES['imagen'])){ //si esta vacio que mande el error, si no, que chequee q sea una img
@@ -39,15 +36,18 @@ if (isset($_POST['submit'])){
     }
 
     //chequeo descripcion max 255 caracteres
-    if (strlen($_POST['descripcion']) > 255) { //puse 10 para que sea mas facil de probar
+    if (strlen($_POST['descripcion']) > 255) {
         $_SESSION['des-error'] = true;
         $esta_ok = false;
     }
+    $_SESSION['dato-form']['descripcion'] = $_POST['descripcion'];
 
     //chequeo plataforma
     if (empty($_POST['id-plataforma'])){
         $_SESSION['plat-error'] = true;
         $esta_ok = false;
+    } else {
+        $_SESSION['dato-form']['id-plataforma'] = $_POST['id-plataforma'];
     }
 
     //chequeo la cant de caracteres de la url (80)
@@ -55,23 +55,23 @@ if (isset($_POST['submit'])){
         $_SESSION['url-error']=true;
         $esta_ok = false;
     }
+    $_SESSION['dato-form']['url'] = $_POST['url'];
 
     //chequeo que se haya seleccionado un genero
     if (empty($_POST['id-genero'])){
         $_SESSION['gen-error']=true;
         $esta_ok = false;
+    } else {
+        $_SESSION['dato-form']['id-genero'] = $_POST['id-genero'];
     }
 
+
     if(!$esta_ok){
-        //agregar variable para datos
-        header("Location: altaJuego.php"); //si hay errores redirige
+        header("Location: altaJuego.php");
         die();
     }
 }
     
-//encodear imagen
-$imgAinsertar = (file_get_contents($_FILES['imagen']['tmp_name']));
-$conv = base64_encode($imgAinsertar);
 $tipo = $_FILES['imagen']['type'];
 $tipoE = explode("/", $tipo);
 
@@ -79,8 +79,9 @@ $alta = "INSERT INTO juegos (nombre, imagen, tipo_imagen, descripcion, url, id_g
         VALUES ('{$_POST['nombre']}', '$conv', '$tipoE[1]', '{$_POST['descripcion']}', '{$_POST['url']}', '{$_POST['id-genero']}', '{$_POST['id-plataforma']}')";
 $resAlta = $link->query($alta);
 
-$_SESSION['alta-exitosa'] = true; //si no hay errores envia true a index
-    header("Location: index.php");
-    die();
+$_SESSION['alta-exitosa'] = true;
+$_SESSION['dato-form'] = array();
+header("Location: index.php");
+die();
 
 ?>
