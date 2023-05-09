@@ -10,7 +10,6 @@ $generos = "SELECT nombre, id FROM generos";
 $resGeneros = $link->query($generos);
 $plataformas = "SELECT * FROM plataformas";
 $resPlataformas = $link->query($plataformas);
-// print_r ($_POST); //DEBUG, eliminar para entrega
 ?>
 
 
@@ -45,10 +44,11 @@ $resPlataformas = $link->query($plataformas);
 
 <!-- formulario para agregar juego -->
 <div class="agregar-juego">
-    <form class="form-juego" id="form-alta-juego" method="post" action="validar-dar-de-alta.php" onsubmit="return validarAltaJuego()" enctype="multipart/form-data"> 
+    <form class="form-juego" id="form-alta-juego" method="post" action="validar-dar-de-alta.php"  enctype="multipart/form-data"> 
 
         <h2>Agregar un juego nuevo</h2>
 
+        <!-- NOMBRE -->
         <label for="" >Nombre</label>
         <?php if (isset($_SESSION['nom-error'])){
                 echo "El campo nombre no puede estar vacio";
@@ -57,6 +57,8 @@ $resPlataformas = $link->query($plataformas);
         <input type="text" id="form-nombre" name="nombre" value="<?php echo (isset($_SESSION['dato-form']['nombre'])) ? $_SESSION['dato-form']['nombre'] : '' ;?>">
 
 
+
+        <!-- IMAGEN -->
         <label for="imagen" name="imagen" id="form-img">Imagen</label>
         <?php if (isset($_SESSION['img-error'])){
                 echo "Se debe seleccionar una imagen";
@@ -71,6 +73,8 @@ $resPlataformas = $link->query($plataformas);
         <input class="btn-img-form" name="imagen" type="file" id="imagen">
 
 
+
+        <!-- DESCRIPCION -->
         <label for="">Descripcion</label>
         <?php if (isset($_SESSION['des-error'])){
                 echo "La descripcion no puede tener mas de 255 caracteres";
@@ -78,6 +82,9 @@ $resPlataformas = $link->query($plataformas);
             } ?>
         <input style="width:60%; height:100px;" name="descripcion"  id="descripcion" value="<?php echo (isset($_SESSION['dato-form']['descripcion'])) ? $_SESSION['dato-form']['descripcion'] : ''; ?>"></input>
 
+
+
+        <!-- GENERO -->
         <label for="id-genero">Genero</label>
         <?php if (isset($_SESSION['gen-error'])){
                 echo "Se debe seleccionar un genero";
@@ -91,6 +98,8 @@ $resPlataformas = $link->query($plataformas);
         </select>
 
 
+
+        <!-- PLATAFORMA -->
         <label for="id-plataforma"> Plataforma </label>
         <?php if (isset($_SESSION['plat-error'])){
                 echo "Se debe seleccionar una plataforma";
@@ -104,6 +113,8 @@ $resPlataformas = $link->query($plataformas);
         </select>
 
 
+
+        <!-- RUTA -->
         <label for="" id="form-url">Ruta</label>
         <?php if (isset($_SESSION['url-error'])){
                 echo "La ruta no puede tener mas de 80 caracteres";

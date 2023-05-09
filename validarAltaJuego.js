@@ -12,13 +12,13 @@ function validarAltaJuego() {
     let url = document.getElementById('url').value;
     let alerta= "";
 
-    //Las alertas estan a modo de mensaje, se pueden sacar, sirven para saber que esta faltando o que esta mal
+    
     if (nombre === null || nombre == ''){
         valido = false;
         alerta += 'El nombre no puede estar vacio. ';
     }
 
-    if (img[0] === undefined ){ //chequeo, si el valor del archivo en la posicion [0] es indefinido, es porque no se selecciono ninguna imagen
+    if (img[0] === undefined ){
         valido = false;
         alerta += 'Se debe seleccionar una imagen. ';
     }
@@ -39,7 +39,7 @@ function validarAltaJuego() {
     }
 
     
-    if (opcionPlataforma === "") { //chequeo si el valor que tengo es el valor de la opcion seleccionar, significa que no fue seleccionado ninguna plataforma, si no devolveria el valor de alguna plataforma permitida
+    if (opcionPlataforma === "") {
         alerta += ' Seleccionar una plataforma.';
         valido = false;
     }

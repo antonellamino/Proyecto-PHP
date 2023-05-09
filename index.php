@@ -74,9 +74,9 @@ $resPlataformas = $link->query($plataformas);
 
         <label for="ordenar">Ordenar: </label>
         <select name="filtro_ordenar" id="ordenar">
-            <option disabled value>Seleccionar</option>
-            <option value="asc">A-Z</option>
-            <option value="desc">Z-A</option>
+            <option <?php echo (empty($_GET['filtro_ordenar'])) ? 'selected' : '' ?> value>Seleccionar</option>
+            <option <?php echo (!empty($_GET['filtro_ordenar']) and ($_GET['filtro_ordenar'] == 'asc')) ? 'selected' : '' ?> value="asc">A-Z</option>
+            <option <?php echo (!empty($_GET['filtro_ordenar']) and ($_GET['filtro_ordenar'] == 'desc')) ? 'selected' : '' ?> value="desc">Z-A</option>
         </select>
 
         <br>
@@ -89,59 +89,63 @@ $resPlataformas = $link->query($plataformas);
     </div>
 
 
+
     <!---------- COMPORTAMIENTO BOTON FILTRAR ---------->
     <?php
     if(isset($_GET['filtrar'])){
-        //FILTRAR POR JUEGO
-        if((!empty($_GET['juego_a_buscar'])) and (empty($_GET['filtro_genero'])) and (empty($_GET['filtro_plataforma']))){
+
+        $consulta = "WHERE ";
+        $set = false;
+
+        if(!empty($_GET['juego_a_buscar'])){
             $nombre = $_GET['juego_a_buscar'];
-            $consulta = "WHERE j.nombre LIKE '%$nombre%' ";
-            ordenar($consulta);
-            imprimirDatos($consulta);
-            }   
-        
-        //FILTRAR POR GENERO
-        if(empty($_GET['juego_a_buscar']) and !empty($_GET['filtro_genero']) and empty($_GET['filtro_plataforma'])){
+            $consulta .= " j.nombre LIKE '%$nombre%' "; //le agrego esto a la consulta
+            $set = true;
+        }
+
+
+        if(!empty($_GET['filtro_genero'])){
             $genero = $_GET['filtro_genero'];
-            $consulta = "WHERE j.id_genero = $genero";
-            ordenar($consulta);
-            imprimirDatos($consulta);
+            if($set){
+                $consulta .= " AND ";
+            }
+            $consulta .= " j.id_genero = $genero ";
+            $set = true;
         }
 
-        //FILTRAR POR PLATAFORMA
-        if(!empty($_GET['filtro_plataforma']) and empty($_GET['filtro_genero']) and empty($_GET['juego_a_buscar'])){
+
+        if(!empty($_GET['filtro_plataforma'])){
             $plataforma = $_GET['filtro_plataforma'];
-            $consulta = "WHERE j.id_plataforma = $plataforma";
-            ordenar($consulta);
-            imprimirDatos($consulta);
-        }
-        
-        if(empty($_GET['filtro_plataforma']) and empty($_GET['filtro_genero']) and empty($_GET['juego_a_buscar'])){
-            echo " -------- no se selecciono filtro -------";
+            if($set){
+                $consulta .= " AND ";
+            }
+            $consulta .= "j.id_plataforma = $plataforma ";
+            $set = true;
         }
 
-        if((empty($_GET['filtro_plataforma']) and !empty($_GET['filtro_genero']) and !empty($_GET['juego_a_buscar'])) ||
-            (!empty($_GET['filtro_plataforma']) and empty($_GET['filtro_genero']) and !empty($_GET['juego_a_buscar'])) ||
-            (!empty($_GET['filtro_plataforma']) and !empty($_GET['filtro_genero']) and empty($_GET['juego_a_buscar'])) ||
-            (!empty($_GET['filtro_plataforma']) and !empty($_GET['filtro_genero']) and !empty($_GET['juego_a_buscar']))){
-            echo " -------- no se puede seleccionar mas de un filtro a la vez -------";
-        } 
-    }
-    else {
-        imprimirDatos("");
-    }
-
-
-
-    function ordenar(&$consulta){
-        if(!empty($_GET['filtro_ordenar'])){
+        if (!$set){
+            $consulta = '';
+        }
+        if(!empty($_GET['filtro_ordenar']) ){
             if($_GET['filtro_ordenar'] == "asc"){
                 $consulta .= " ORDER BY j.nombre ASC";
             }
             else {
                 $consulta .= " ORDER BY j.nombre DESC";
             }
+            $set = true;
         }
+
+        if($set){
+            imprimirDatos($consulta);
+        } else {
+            echo "<h2 style='width:60%; height:50px; margin-left:20%; text-align:center;'> -------- No se selecciono filtro -------</h2>";
+        }
+
+
+
+    } else {
+        imprimirDatos("");
     }
 
 

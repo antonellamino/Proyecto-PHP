@@ -1,5 +1,5 @@
 <?php
-include_once "conexionBD.php";
+require_once "conexionBD.php"; //para el script, error fatal, el include tira un warning y permite continuar
 session_start();
 
 
@@ -15,7 +15,7 @@ if (isset($_POST['submit'])){
     $_SESSION['dato-form']['nombre'] = $_POST['nombre'];
 
     //chequeo de imagen
-    if(empty($_FILES['imagen'])){ //si esta vacio que mande el error, si no, que chequee q sea una img
+    if(empty($_FILES['imagen']['tmp_name'])){
         $_SESSION['img-error'] = true;
         $esta_ok = false;
     } else {
@@ -72,7 +72,7 @@ if (isset($_POST['submit'])){
     }
 }
     
-$tipo = $_FILES['imagen']['type'];
+$tipo = $_FILES['imagen']['type'];//aca ya tengo el tipo en type pero ok
 $tipoE = explode("/", $tipo);
 
 $alta = "INSERT INTO juegos (nombre, imagen, tipo_imagen, descripcion, url, id_genero, id_plataforma) 
